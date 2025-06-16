@@ -118,6 +118,10 @@ var LangText={
 		"t124": "",
 		"t125": "Maker’s Supply",
 		"t126": "Loading……"
+		"t127": "Edit Project Info",
+    		"t128": "no model information",
+    		"t129": "Stealth Mode",
+    		"t130": "Enable Stealth Mode.",
 	},
 	"zh_CN": {
 		"t1": "欢迎使用Bambu Studio",
@@ -238,6 +242,8 @@ var LangText={
 		"t124": " 盘",
 		"t125": "创客宝库",
 		"t126": "正在加载……",
+		"t127": "编辑项目信息",
+    		"t128": "该模型没有相关信息",	
 		"wk1": "快速入门指南",
 		"wk2": "本文介绍了Bambu Studio的最基本用法。它指导用户配置软件，创建项目，并逐步完成第一个打印任务。",
 		"wk3": "基于项目的工作流",
@@ -492,6 +498,10 @@ var LangText={
 		"t123": "piatto",
 		"t124": "",
 		"t126": "Caricamento in corso……"
+		"t127": "Modifica informazioni progetto",
+	    	"t128": "nessuna informazione sul modello",
+	    	"t129": "Modalità invisibile",
+		"t130": "Abilita la modalità invisibile.",
 	},
 	"fr_FR": {
 		"t1": "Bienvenue chez Bambu Studio",
@@ -611,6 +621,8 @@ var LangText={
 		"t123": "assiette",
 		"t124": "",
 		"t126": "Chargement en cours……"
+		"t127": "Modifier les informations du projet",
+   		"t128": "pas d'information sur le modèle",
 	},
 	"de_DE": {
 		"t1": "Willkommen im Bambu Studio",
@@ -968,6 +980,10 @@ var LangText={
 		"t123": "plato",
 		"t124": "",
 		"t126": "Carga en progreso……"
+		"t127": "Editar información del proyecto",
+    		"t128": "No hay información sobre el modelo",
+    		"t129": "Modo Invisible",
+    		"t130": "Activar Modo Invisible.",
 	},
 	"sv_SE": {
 		"t1": "Välkommen till Bambu Studio",
@@ -1563,6 +1579,10 @@ var LangText={
 		"t123": "тарелка",
 		"t124": "",
 		"t126": "Загрузка идёт……"
+		"t127": "Редактировать информацию о проекте",
+		"t128": "Информации о модели отсутствует",
+		"t129": "Режим конфиденциальности",
+		"t130": "Включить режим конфиденциальности"
 	},
 	"tr_TR": {
 		"t1": "Bambu Stüdyo'ya Hoş Geldiniz",
@@ -1682,6 +1702,8 @@ var LangText={
 		"t123": "tabak",
 		"t124": "",
 		"t126": "Yükleme devam ediyor……"
+		"t127": "Proje Bilgilerini Düzenle",
+    		"t128": "model bilgisi yok",
 	},
 	"pt_BR": {
 		"t1": "Bem-vindo ao Bambu Studio",
@@ -1801,6 +1823,10 @@ var LangText={
 		"t123": "prato",
 		"t124": "",
 		"t126": "Carregamento em andamento……"
+		"t127": "Editar Info do Projeto",
+		"t128": "Sem informação do modelo",
+		"t129": "Modo Furtivo",
+		"t130": "Habilita Modo Furtivo.",
 	},
 	"ko_KR": {
 		"t1": "Bambu Studio에 오신 것을 환영합니다",
@@ -2039,6 +2065,10 @@ var LangText={
 		"t123": "talerz",
 		"t124": "",
 		"t126": "Ładowanie trwa……"
+	    	"t127": "Edytuj informacje o projekcie",
+    		"t128": "brak informacji o modelu",
+		"t129": "Tryb «Niewidzialny»",
+    		"t130": "Włącz tryb «Niewidzialny»",	
 	}
 };
 
