@@ -310,6 +310,11 @@ void ProjectPanel::OnScriptMessage(wxWebViewEvent& evt)
         else if (strCmd == "request_3mf_info") {
             m_web_init_completed = true;
         }
+
+        else if (strCmd == "edit_project_info") {
+            show_info_editor(true);
+        }
+            
         else if (strCmd == "modelmall_model_open") {
             if (j.contains("data")) {
                 json data = j["data"];
@@ -339,6 +344,15 @@ void ProjectPanel::OnScriptMessage(wxWebViewEvent& evt)
         // wxMessageBox(e.what(), "json Exception", MB_OK);
     }
 }
+
+
+void ProjectPanel::show_info_editor(bool show)
+{
+    m_browser->Show(!show);
+    m_auxiliary->Show(show);
+    Layout();
+}
+
 
 void ProjectPanel::update_model_data()
 {
