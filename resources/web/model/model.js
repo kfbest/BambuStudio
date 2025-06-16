@@ -632,6 +632,17 @@ function JumpToWeb()
 	SendWXMessage( JSON.stringify(tSend) );			
 }
 
+function OnClickEditProjectInfo()
+{
+	var tSend={};
+	tSend['sequence_id']=Math.round(new Date() / 1000);
+	tSend['command']="edit_project_info";
+		
+	SendWXMessage( JSON.stringify(tSend) );		
+}
+
+
+
 
 
 
