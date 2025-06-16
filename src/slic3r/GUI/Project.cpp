@@ -78,6 +78,16 @@ std::string trim(const std::string &str, const std::string &charsToTrim)
     std::regex pattern("^[" + charsToTrim + "]+|[" + charsToTrim + "]+$");
     return std::regex_replace(str, pattern, "");
 }
+// Helper to convert newlines to <br>
+static std::string convert_newlines_to_br(const std::string& text) {
+    std::string result = text;
+    size_t pos = 0;
+    while ((pos = result.find('\n', pos)) != std::string::npos) {
+        result.replace(pos, 1, "<br>");
+        pos += 4;
+    }
+    return result;
+}
 
 /**
  * On new window, we veto to stop extra windows appearing
@@ -200,7 +210,7 @@ void ProjectPanel::on_reload(wxCommandEvent& evt)
         j["model"]["name"] = wxGetApp().url_encode(model_name);
         j["model"]["author"] = wxGetApp().url_encode(model_author);;
         j["model"]["cover_img"] = wxGetApp().url_encode(cover_file);
-        j["model"]["description"] = wxGetApp().url_encode(description);
+        j["model"]["description"] = wxGetApp().url_encode(convert_newlines_to_br(description));
         j["model"]["preview_img"] = files["Model Pictures"];
         j["model"]["upload_type"] = update_type;
         j["model"]["model_id"] = model_id;
