@@ -989,14 +989,14 @@ std::string AuxiliaryPanel::replaceSpace(std::string s, std::string ts, std::str
     return s;
 }
 
-void AuxiliaryPanel::Reload(wxString aux_path)
+void AuxiliaryPanel::Reload(wxString aux_path, std::map<std::string, std::vector<json>> paths)
 {
     fs::path new_aux_path(aux_path.ToStdWstring());
 
     try {
         fs::remove_all(fs::path(m_root_dir.ToStdWstring()));
     } catch (...) {
-        BOOST_LOG_TRIVIAL(error) << "Failed  removing the auxiliary directory " << m_root_dir.c_str();
+        BOOST_LOG_TRIVIAL(error) << "Failed removing the auxiliary directory " << m_root_dir.c_str();
     }
 
     m_root_dir = aux_path;
