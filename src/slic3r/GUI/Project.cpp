@@ -78,6 +78,7 @@ std::string trim(const std::string &str, const std::string &charsToTrim)
     std::regex pattern("^[" + charsToTrim + "]+|[" + charsToTrim + "]+$");
     return std::regex_replace(str, pattern, "");
 }
+
 // Helper to convert newlines to <br>
 static std::string convert_newlines_to_br(const std::string& text) {
     std::string result = text;
