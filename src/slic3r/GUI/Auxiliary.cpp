@@ -46,6 +46,15 @@ const std::vector<std::string> license_list = {
     "CC License"
 };
 
+static std::shared_ptr<ModelInfo> ensure_model_info()
+{
+    auto& model = wxGetApp().plater()->model();
+    if (model.model_info == nullptr) {
+        model.model_info = std::make_shared<ModelInfo>();
+    }
+    return model.model_info;
+}
+
 AuFile::AuFile(wxWindow *parent, fs::path file_path, wxString file_name, AuxiliaryFolderType type, wxWindowID id, const wxPoint &pos, const wxSize &size, long style)
 {
     m_type      = type;
