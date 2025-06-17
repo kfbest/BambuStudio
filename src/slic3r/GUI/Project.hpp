@@ -65,6 +65,7 @@ private:
     bool       m_reload_already = {false};
 
     wxWebView* m_browser = {nullptr};
+    AuxiliaryPanel*   m_auxiliary{nullptr};
     wxString   m_project_home_url;
     wxString   m_root_dir;
     std::map<std::string, std::string> m_model_id_map;
