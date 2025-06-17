@@ -32,6 +32,8 @@
 #include "Event.hpp"
 #include "libslic3r/ProjectTask.hpp"
 #include "wxExtensions.hpp"
+#include "Auxiliary.hpp"
+
 
 #define AUFILE_GREY700 wxColour(107, 107, 107)
 #define AUFILE_GREY500 wxColour(158, 158, 158)
@@ -68,6 +70,8 @@ private:
     std::map<std::string, std::string> m_model_id_map;
     static inline int m_sequence_id = 8000;
 
+    void show_info_editor(bool show);
+
 public:
     ProjectPanel(wxWindow *parent, wxWindowID id = wxID_ANY, const wxPoint &pos = wxDefaultPosition, const wxSize &size = wxDefaultSize, long style = wxTAB_TRAVERSAL);
     ~ProjectPanel();
@@ -82,6 +86,7 @@ public:
     void msw_rescale();
     void update_model_data();
     void clear_model_info();
+    void init_auxiliary() { m_auxiliary->init_auxiliary(); }
 
     bool Show(bool show);
     void OnScriptMessage(wxWebViewEvent& evt);
