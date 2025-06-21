@@ -241,7 +241,7 @@ void ProjectPanel::on_reload(wxCommandEvent& evt)
         j["model"]["description"] = wxGetApp().url_encode(convert_newlines_to_br(description));
         j["model"]["preview_img"] = files["Model Pictures"];
         j["model"]["upload_type"] = update_type;
-        j["model"]["model_id"] = model_id;
+       // j["model"]["model_id"] = model_id;
 
 
         j["file"]["BOM"] = files["Bill of Materials"];
@@ -264,10 +264,11 @@ void ProjectPanel::on_reload(wxCommandEvent& evt)
         #ifdef __APPLE__
                 wxGetApp().CallAfter([this, strJS] { RunScript(strJS.ToStdString()); });
         #else
-        
-        if (m_web_init_completed) {
-            wxGetApp().CallAfter([this, strJS] { RunScript(strJS.ToStdString()); });
-        }
+            if (m_web_init_completed) {
+                wxGetApp().CallAfter([this, strJS] { RunScript(strJS.ToStdString()); });
+            }
+        #endif
+
     });
 }
 
