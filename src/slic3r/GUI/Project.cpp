@@ -241,6 +241,8 @@ void ProjectPanel::on_reload(wxCommandEvent& evt)
         j["model"]["description"] = wxGetApp().url_encode(convert_newlines_to_br(description));
         j["model"]["preview_img"] = files["Model Pictures"];
         j["model"]["upload_type"] = update_type;
+        j["model"]["model_id"] = model_id;
+
 
         j["file"]["BOM"] = files["Bill of Materials"];
         j["file"]["Assembly"] = files["Assembly Guide"];
@@ -259,13 +261,44 @@ void ProjectPanel::on_reload(wxCommandEvent& evt)
 
         wxString strJS = wxString::Format("HandleStudio(%s)", m_Res.dump(-1, ' ', false, json::error_handler_t::ignore));
 
+        #ifdef __APPLE__
+                wxGetApp().CallAfter([this, strJS] { RunScript(strJS.ToStdString()); });
+        #else
+        
         if (m_web_init_completed) {
-            wxGetApp().CallAfter([this, strJS] {
-                RunScript(strJS.ToStdString());
-                });
+            wxGetApp().CallAfter([this, strJS] { RunScript(strJS.ToStdString()); });
         }
     });
 }
+
+std::string ProjectPanel::get_model_id(std::string desgin_id)
+{
+    std::string model_id;
+    auto host = wxGetApp().get_http_url(wxGetApp().app_config->get_country_code(), "v1/design-service/model/" + desgin_id);
+    Http http = Http::get(host);
+    http.header("accept", "application/json")
+        //.header("Authorization")
+        .on_complete([this, &model_id](std::string body, unsigned status) {
+        try {
+            json j = json::parse(body);
+            if (j.contains("id")) {
+                int mid = j["id"].get<int>();
+                if (mid > 0) {
+                    model_id = std::to_string(mid);
+                }
+            }
+        }
+        catch (...) {
+            ;
+        }
+            })
+        .on_error([this](std::string body, std::string error, unsigned status) {
+            })
+        .perform_sync();
+
+    return model_id;
+}
+
 
 void ProjectPanel::msw_rescale()
 {
@@ -304,6 +337,25 @@ void ProjectPanel::OnScriptMessage(wxWebViewEvent& evt)
         }
         else if (strCmd == "request_3mf_info") {
             m_web_init_completed = true;
+        }
+            
+        else if (strCmd == "modelmall_model_open") {
+            if (j.contains("data")) {
+                json data = j["data"];
+
+                if (data.contains("id")) {
+                    wxString model_id =  j["data"]["id"];
+
+                    if (!model_id.empty()) {
+                        std::string h = wxGetApp().get_model_http_url(wxGetApp().app_config->get_country_code());
+                        auto l = wxGetApp().current_language_code_safe();
+                        if (auto n = l.find('_'); n != std::string::npos)
+                            l = l.substr(0, n);
+                        auto url = (boost::format("%1%%2%/models/%3%") % h % l % model_id).str();
+                        wxLaunchDefaultBrowser(url);
+                    }
+                }
+            } 
         }
         else if (strCmd == "edit_project_info") {
             show_info_editor(true);
@@ -362,6 +414,7 @@ std::map<std::string, std::vector<json>> ProjectPanel::Reload(wxString aux_path)
 {
     std::vector<fs::path>                           dir_cache;
     fs::directory_iterator                          iter_end;
+    wxString                                        m_root_dir;
     std::map<std::string, std::vector<json>> m_paths_list;
 
     const static std::array<wxString, 5> s_default_folders = {
@@ -378,7 +431,16 @@ std::map<std::string, std::vector<json>> ProjectPanel::Reload(wxString aux_path)
 
 
     fs::path new_aux_path(aux_path.ToStdWstring());
+    
+    try {
+        fs::remove_all(fs::path(m_root_dir.ToStdWstring()));
+    }
+    catch (...) {
+        BOOST_LOG_TRIVIAL(error) << "Failed  removing the auxiliary directory" << m_root_dir.c_str();
+    }
 
+    m_root_dir = aux_path;
+    
     // Check new path. If not exist, create a new one.
     if (!fs::exists(new_aux_path)) {
         fs::create_directory(new_aux_path);
